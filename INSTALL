@@ -73,4 +73,4 @@ Step 1 & 2 is for those who need recompile on their platform.
       # serial_ip -d
       # serial_ip -p 1194
   
-  Updated 27th August, 2015, by author. 
+  Updated 27th August, 2015, by author. Test with GIT
