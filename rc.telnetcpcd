@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# /etc/rc.d/init.d/telnetcpcd        starts telnetcpcd
+#
+# Copyright (c) 2002,2003 Thomas J Pinkl <tom@pinkl.com>
+#
+# chkconfig: 2345 89 11
+# description: telnetcpcd is the Telnet Com Port Control daemon
+
+ARG1="$1"
+ARGS="$@"
+
+# Source function library.
+. /lib/lsb/init-functions
+
+TNCPCD="/usr/local/sbin/telnetcpcd"
+CONF="/etc/telnetcpcd.conf"
+[ -x $TNCPCD -a -f $CONF ] || exit 
+
+# See how we were called.
+case "$ARG1" in
+  start)
+	echo -n "Starting telnetcpcd: "
+	daemon $TNCPCD -d -c $CONF
+	touch /var/lock/subsys/telnetcpcd
+	echo
+	;;
+  stop)
+	echo -n "Shutting down telnetcpcd: "
+	killproc telnetcpcd
+	rm -f /var/lock/subsys/telnetcpcd
+	echo
+	;;
+  restart)
+	$0 stop
+	$0 start
+	;;
+  *)
+	echo "Usage: telnetcpcd {start|stop|restart}"
+	exit 1
+esac
+
+exit 0

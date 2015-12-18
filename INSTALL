@@ -1,0 +1,76 @@
+#--------------------------------------------------------------------------------------
+Software:  serial-ip
+Version :  1.0   - 04th August 2015.
+Author  :  To Minh Tien 
+Email   :  tien.tominh@gmail.com
+#--------------------------------------------------------------------------------------
+The software is implemented under TominhTien's Master Thesis.
+
+Description: 	serial-ip is a software for communicating between a serial machine and 
+				remote host via Sabre-Lite board.
+
+#--------------------------------------------------------------------------------------
+Instruction:
+
+This is the INSTALL file for serial-ip software located at server side.  You will need
+to build the program from the supplied source before you install it. Therefore, you 
+will need a C development system. For the purpose of a portable software, one can using
+the Makefile and edit for his/her platform and compiler.
+Here, I am using my binary file generated via Eclipse.
+
+Step 1 & 2 is for those who need recompile on their platform. 
+  1.  Edit the Makefile for your platform and compiler.
+
+  2.  Type 'make'.  A single executable, serial_ip, should be 
+      built.
+
+  3.  There is no 'install' target in the Makefile.  You must 
+      install it "by hand".  To do so, copy the serial_ip 
+      executable to the bin directory of your choice.  For 
+      example (on Linux):
+
+      # cp serial_ip /usr/local/bin
+      # cp serial_ip /usr/local/sbin
+
+
+  4.  Copy the included configuration file, serial_ip.conf, to 
+      the /etc directory and edit it for your environment:
+
+      # cp serial_ip.conf /etc
+      # chown root:root /etc/serial_ip.conf
+      # chmod 644 /etc/serial_ip.conf
+      # vi /etc/serial_ip.conf
+
+      The config file tells the serial-ip daemon which ports 
+      it should make available over the network.
+
+  5.  Arrange to have serial-ip started when your system boots. 
+      A sample rc script for Ubuntu Linux is included.  For 
+      example, this script is writen for Ubuntu:
+
+      # cp serial_ip.init /etc/init.d/serial_ip
+      # chown root:root /etc/init.d/serial_ip
+      # chmod 755 /etc/init.d/serial_ip
+ 
+  6.  Change permission for the working serial port. For example:
+  	  
+  	  # chmod o+rw /dev/ttyS1
+	  # chmod o+rw /dev/ttyUSB0	
+  	  # chmod o+rw /dev/ttymxc0    (for Sabre)	
+
+      By default, serial_ip runs on port 1194.  You can specify a 
+      different port by using the "-p" option at startup.  To do so, 
+      you will need to edit the rc script.
+
+  7. To start serial-ip now, on Ubuntu Linux:
+
+	  #mkdir /var/lock/subsys
+	  #mkdir /var/spool/uucp
+	  #chmod o+rw /dev/<serial_port>	
+      # service serial_ip start
+      
+      If you want to run manually, follow these commands:
+      # serial_ip -d
+      # serial_ip -p 1194
+  
+  Updated 27th August, 2015, by author. 

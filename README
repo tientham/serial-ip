@@ -1,0 +1,20 @@
+#--------------------------------------------------------------------------------------
+Software:  serial-ip
+Version :  1.0   - 04th August 2015.
+Author  :  To Minh Tien 
+Email   :  tien.tominh@gmail.com
+#--------------------------------------------------------------------------------------
+The software is implemented under TominhTien's Master Thesis.
+
+Description: 	serial-ip is a software for communicating between a serial machine and 
+				remote host via Sabre-Lite board.
+
+#--------------------------------------------------------------------------------------
+Instruction:
+
+There is the INSTALL file for serial-ip software which is located in the $(top_srcdir).
+Follow this file to install and use the program.
+
+
+#--------------------------------------------------------------------------------------
+ChangeLog:

@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# /etc/init.d/serial_ip        starts serial-ip
+#
+# Copyright (c) August, 2015 Minh Tien TO <tien.tominh@gmail.com>
+#
+# 
+# description: serial-ip is the Telnet Com Port Control daemon
+
+ARG1="$1"
+ARGS="$@"
+
+# Source function library.
+. /lib/lsb/init-functions
+
+SERIALIP="/usr/local/sbin/serial_ip"
+CONF="/etc/serial_ip.conf"
+[ -x $SERIALIP -a -f $CONF ] || exit 
+
+# See how we were called.
+case "$ARG1" in
+  start)
+	echo -n "Starting serial-ip"
+	$SERIALIP -d -c $CONF
+	touch /var/lock/subsys/serial_ip
+	echo
+	;;
+  stop)
+	echo -n "Shutting down serial-ip "
+	killproc serial_ip
+	rm -f /var/lock/subsys/serial_ip
+	echo
+	;;
+  restart)
+	$0 stop
+	$0 start
+	;;
+  status)
+	status serial_ip
+	;;
+  *)
+	echo "Usage: serial_ip {start|stop|restart}"
+	exit 1
+esac
+
+exit 0
